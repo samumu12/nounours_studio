@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">nounours</string>
+
+    <!-- Login part -->
+    <string name="login_form_title">Login</string>
+    <string name="login_form_username">Username</string>
+    <string name="login_form_password">Password</string>
+    <string name="login_form_login">Go !</string>
+    <string name="title_activity_login">Log in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <!-- Menu part -->
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="discover">Discover</string>
+    <string name="favorites">Favorites</string>
+    <string name="research">Research</string>
+</resources>
