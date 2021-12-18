@@ -27,11 +27,12 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, DiscoverFragment.class, null)
+                .replace(R.id.placeholder, new DiscoverFragment())
                 .commit();
         }
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(item -> {
+
+        BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.nav_view);
+        navigationView.setOnNavigationItemSelectedListener(item -> {
             // Handle item selection
             switch (item.getItemId()) {
                 case R.id.discover:
@@ -47,14 +48,6 @@ public class MainActivity extends AppCompatActivity {
                     return false;
             }
         });
-
-        // var navView = findViewById<BottomNavigationView>(R.id.nav_view);
-        // var navController = findNavController(R.id.nav_fragment);
-        // navView.setupWithNavController(navController);
-        // NavigationView navigationView = findViewById(R.id.nav_view);
-        // navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            
-        // });
     }
 
     @Override
