@@ -2,6 +2,7 @@ package com.example.nounours;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,10 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.nounours.Controllers.LoginController;
+
 public class LoginActivity extends AppCompatActivity {
     private EditText UserEmail;
     private EditText Password;
     private Button Login;
+    public static Activity fa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +28,13 @@ public class LoginActivity extends AppCompatActivity {
         UserEmail = findViewById(R.id.username);
         Password = findViewById(R.id.password);
         Login = findViewById(R.id.login);
+
+        fa = this;
+
         final String[] username = {""};
         final String[] password = {""};
+
+        LoginController controller = new LoginController();
 
         Login.setEnabled(false);
 
@@ -52,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-            Login.setEnabled(true);
+                Login.setEnabled(true);
             }
 
             @Override
@@ -64,7 +73,13 @@ public class LoginActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                String token = controller.getToken();
+
+                if (token != null) {
+                controller.getLogin(username[0], password[0], token);
+                }
+                else {
+                }
             }
         });
     }
@@ -75,6 +90,4 @@ public class LoginActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_bar, menu);
         return true;
     }
-
-
 }

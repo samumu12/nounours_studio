@@ -1,37 +1,34 @@
 package com.example.nounours;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.nounours.content.DiscoverContent.DiscoverItem;
-import com.example.nounours.databinding.FragmentDiscoverBinding;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.nounours.content.FavoritesContent.FavoritesItem;
+import com.example.nounours.databinding.FragmentFavoritesBinding;
 
 import java.util.List;
 
 
+public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
-public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHolder> {
+    private final List<FavoritesItem> mValues;
 
-    private final List<DiscoverItem> mValues;
-
-    public DiscoverAdapter(List<DiscoverItem> items) {
+    public FavoritesAdapter(List<FavoritesItem> items) {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(FragmentDiscoverBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(FragmentFavoritesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        // holder.mIdView.setText(mValues.get(position).title);
         holder.mContentView.setText(mValues.get(position).desc);
     }
 
@@ -41,13 +38,11 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        // public final TextView mIdView;
         public final TextView mContentView;
-        public DiscoverItem mItem;
+        public FavoritesItem mItem;
 
-        public ViewHolder(FragmentDiscoverBinding binding) {
+        public ViewHolder(FragmentFavoritesBinding binding) {
             super(binding.getRoot());
-            // mIdView = binding.itemNumber;
             mContentView = binding.content;
         }
 
@@ -55,7 +50,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
         public void onClick(View v) {
             int id = mItem.id;
             // Redirect to page Film with this id
-            Log.d("14", String.valueOf(id));
         }
 
         @Override

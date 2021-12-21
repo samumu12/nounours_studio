@@ -14,7 +14,7 @@ public class RetrofitAPI {
     public static APIService getRetrofit() {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm").create();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.themoviedb.org/3")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 

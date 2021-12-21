@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName;
 public final class DataToken {
 
     @SerializedName("success")
-    boolean success;
+    public boolean success;
 
     @SerializedName("expires_at")
-    String expiration;
+    public String expiration;
 
     @SerializedName("request_token")
-    String token;
+    public String token;
 }
