@@ -1,67 +1,66 @@
-package com.example.nounours.content;
+package com.example.nounours.Discover;
 
-import android.util.Log;
-import android.view.MotionEvent;
+import android.content.Context;
+import android.content.Intent;
 
-import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nounours.Activity.FilmActivity;
+import com.example.nounours.Activity.MainActivity;
 import com.example.nounours.Data.DataDiscover;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import com.example.nounours.Controllers.DiscoverController;
 import com.example.nounours.Data.DataDiscoverList;
-import com.example.nounours.DiscoverAdapter;
 
-public class DiscoverContent {
+public class DiscoverContent extends FragmentActivity implements DiscoverAdapter.OnFilmClickListener {
 
     public static final List<DiscoverItem> ITEMS = new ArrayList<DiscoverItem>();
+    private Context _context;
 
     public static final Map<Integer, DiscoverItem> ITEM_MAP = new HashMap<Integer, DiscoverItem>();
 
     private static RecyclerView VIEW;
 
-    public DiscoverContent() {
+    public DiscoverContent(Context context) {
+        _context = context;
+    }
 
+    @Override
+    public void onFilmClick(DiscoverItem mItem) {
+        Intent intent = new Intent(_context, FilmActivity.class);
+
+        intent.putExtra("title", mItem.title);
+        intent.putExtra("id", mItem.id);
+        intent.putExtra("desc", mItem.desc);
+        intent.putExtra("language", mItem.language);
+        intent.putExtra("overview", mItem.overview);
+        intent.putExtra("release_date", mItem.release_date);
+        intent.putExtra("vote_avg", mItem.vote_avg);
+        intent.putExtra("vote_count", mItem.vote_count);
+
+        _context.startActivity(intent);
     }
 
     public void getItems(int page, RecyclerView view) {
-        Log.d("16", "xd");
         DiscoverController controller = new DiscoverController();
         controller.getDiscover(page, this);
         VIEW = view;
-    
-        // setItems(values);
     }
 
-    public static void setItems(DataDiscover values) {
-        Log.d("8", String.valueOf(values.res_nb));
-        Log.d("7", String.valueOf(values.res));
-
+    public void setItems(DataDiscover values) {
         for (int i = 0; i < values.res.length; i++) {
             addItem(createDiscoverItem(values.res[i]));
         }
-        VIEW.setAdapter(new DiscoverAdapter(ITEMS));
-        VIEW.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                Log.d("30", "lol");
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-            }
-        });
+        DiscoverAdapter adpt = new DiscoverAdapter(ITEMS);
+        adpt.setListener(this);
+        VIEW.setAdapter(adpt);
     }
 
     private static void addItem(DiscoverItem item) {
@@ -120,7 +119,6 @@ public class DiscoverContent {
             this.vote_avg = vote_avg;
             this.vote_count = vote_count;
             this.desc = desc;
-            Log.d("10", desc);
         }
 
         @Override

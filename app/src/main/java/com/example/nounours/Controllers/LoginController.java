@@ -1,12 +1,10 @@
 package com.example.nounours.Controllers;
 
-import android.util.Log;
-
 import com.example.nounours.Data.DataToken;
 import com.example.nounours.Data.User;
-import com.example.nounours.LoginActivity;
-import com.example.nounours.RetrofitAPI;
-import com.example.nounours.APIService;
+import com.example.nounours.Activity.LoginActivity;
+import com.example.nounours.Interfaces.RetrofitAPI;
+import com.example.nounours.Interfaces.APIService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,19 +16,17 @@ public class LoginController {
 
     public String getToken() {
         Call<DataToken> call = service.getToken("d3a6973dd4a2b15cbcda2963be1fd795");
-
         call.enqueue(new Callback<DataToken>() {
             @Override
             public void onResponse(Call<DataToken> call, Response<DataToken> response) {
-                if (response.body().success) {
-                    Log.d("4", response.toString());
+                if (response.code() == 200) {
                     _token = response.body().token;
                 }
             }
 
             @Override
             public void onFailure(Call<DataToken> call, Throwable t) {
-                    _token = null;
+                _token = "Empty";
             }
         });
 
@@ -46,7 +42,7 @@ public class LoginController {
         call.enqueue(new Callback<DataToken>() {
             @Override
             public void onResponse(Call<DataToken> call, Response<DataToken> response) {
-                if (response.body().success) {LoginActivity.fa.finish();}
+                if (response.code() == 200) {LoginActivity.fa.finish();}
             }
 
             @Override

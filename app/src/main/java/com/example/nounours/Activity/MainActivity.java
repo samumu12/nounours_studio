@@ -1,14 +1,17 @@
-package com.example.nounours;
+package com.example.nounours.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.nounours.Discover.DiscoverFragment;
+import com.example.nounours.Favorites.FavoritesFragment;
+import com.example.nounours.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(R.id.placeholder, new DiscoverFragment())
+                .replace(R.id.placeholder, new DiscoverFragment(this))
                 .commit();
         }
 
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.discover:
                     getSupportFragmentManager().beginTransaction()
                         .setReorderingAllowed(true)
-                        .replace(R.id.placeholder, new DiscoverFragment())
+                        .replace(R.id.placeholder, new DiscoverFragment(this))
                         .commit();
                     return true;
                 case R.id.favorites:
@@ -49,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

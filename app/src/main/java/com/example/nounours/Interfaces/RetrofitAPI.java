@@ -1,8 +1,8 @@
-package com.example.nounours;
+package com.example.nounours.Interfaces;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.example.nounours.APIService;
+import com.example.nounours.Interfaces.APIService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

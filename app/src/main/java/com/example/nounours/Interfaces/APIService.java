@@ -1,4 +1,4 @@
-package com.example.nounours;
+package com.example.nounours.Interfaces;
 
 import com.example.nounours.Data.DataAccount;
 import com.example.nounours.Data.DataDiscover;

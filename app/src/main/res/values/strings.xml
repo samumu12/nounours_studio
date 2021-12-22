@@ -14,7 +14,7 @@
     <string name="login_failed">"Login failed"</string>
 
     <!-- Menu part -->
-    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_film">Film activity</string>
     <string name="discover">Discover</string>
     <string name="favorites">Favorites</string>
     <string name="research">Research</string>

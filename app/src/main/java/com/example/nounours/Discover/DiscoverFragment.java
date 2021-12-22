@@ -1,36 +1,37 @@
-package com.example.nounours;
+package com.example.nounours.Discover;
 
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.nounours.content.FavoritesContent;
+import com.example.nounours.Activity.MainActivity;
+import com.example.nounours.R;
 
-public class FavoritesFragment extends Fragment {
+public class DiscoverFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
 
-    FavoritesContent CONTENT = new FavoritesContent();
+    DiscoverContent CONTENT;
 
-    public FavoritesFragment() {
-        Log.d("11", "construct frag");
+    public DiscoverFragment(MainActivity mainActivity) {
+        CONTENT = new DiscoverContent(mainActivity);
+    }
+    public DiscoverFragment(DiscoverFragment mainActivity) {
+
     }
 
     @SuppressWarnings("unused")
-    public static FavoritesFragment newInstance(int columnCount) {
-        FavoritesFragment fragment = new FavoritesFragment();
+    public DiscoverFragment newInstance(int columnCount) {
+        DiscoverFragment fragment = new DiscoverFragment(this);
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -49,7 +50,7 @@ public class FavoritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorites_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_discover_list, container, false);
 
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -60,6 +61,7 @@ public class FavoritesFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             CONTENT.getItems(1, recyclerView);
+            // recyclerView.setAdapter(new DiscoverAdapter(content.ITEMS));
         }
         return view;
     }

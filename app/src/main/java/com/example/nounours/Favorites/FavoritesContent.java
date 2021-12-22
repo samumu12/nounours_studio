@@ -1,9 +1,7 @@
-package com.example.nounours.content;
+package com.example.nounours.Favorites;
 
 import android.util.Log;
-import android.view.MotionEvent;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nounours.Data.DataFavorites;
@@ -11,14 +9,13 @@ import com.example.nounours.Data.DataFavorites;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import com.example.nounours.Controllers.FavoritesController;
 import com.example.nounours.Data.DataFavoritesList;
-import com.example.nounours.FavoritesAdapter;
+import com.example.nounours.Favorites.FavoritesAdapter;
 
-public class FavoritesContent {
+public class FavoritesContent implements FavoritesAdapter.OnFilmClickListener {
 
     public static final List<FavoritesItem> ITEMS = new ArrayList<FavoritesItem>();
 
@@ -30,17 +27,38 @@ public class FavoritesContent {
 
     }
 
+    @Override
+    public void onFilmClick(FavoritesItem mItem) {
+        //put data to bundle and startActivity
+        Log.d("1", "onfilmclick");
+        Log.d("2", mItem.title);
+    }
+
     public void getItems(int page, RecyclerView view) {
         FavoritesController controller = new FavoritesController();
-        controller.getFavorites(page, this);
+        String token = controller.getToken();
+        String session = "";
+        int accountId = 0;
+        if (token != "") {
+            session = controller.getSessionId(token);
+        }
+        if (session != "") {
+            accountId = controller.getAccountID(session);
+        }
+        if (accountId != 0) {
+            controller.getFavorites(page, this, session, accountId);
+        }
+
         VIEW = view;
     }
 
-    public static void setItems(DataFavorites values) {
+    public void setItems(DataFavorites values) {
         for (int i = 0; i < values.res.length; i++) {
             addItem(createFavoritesItem(values.res[i]));
         }
-        VIEW.setAdapter(new FavoritesAdapter(ITEMS));
+        FavoritesAdapter adpt = new FavoritesAdapter(ITEMS);
+        adpt.setListener(this);
+        VIEW.setAdapter(adpt);
     }
 
     private static void addItem(FavoritesItem item) {

@@ -1,5 +1,6 @@
-package com.example.nounours;
+package com.example.nounours.Favorites;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nounours.content.FavoritesContent.FavoritesItem;
+import com.example.nounours.Favorites.FavoritesContent.FavoritesItem;
 import com.example.nounours.databinding.FragmentFavoritesBinding;
 
 import java.util.List;
@@ -16,6 +17,14 @@ import java.util.List;
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
     private final List<FavoritesItem> mValues;
+
+    public interface OnFilmClickListener {
+        void onFilmClick(FavoritesItem mItem);
+    }
+    private OnFilmClickListener listener;
+    public void setListener(OnFilmClickListener listener) {
+        this.listener = listener;
+    }
 
     public FavoritesAdapter(List<FavoritesItem> items) {
         mValues = items;
@@ -27,9 +36,17 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.mItem = mValues.get(position);
         holder.mContentView.setText(mValues.get(position).desc);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.onFilmClick(mValues.get(position));
+                }
+            }
+        });
     }
 
     @Override

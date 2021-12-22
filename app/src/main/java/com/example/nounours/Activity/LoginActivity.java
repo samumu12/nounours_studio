@@ -1,4 +1,4 @@
-package com.example.nounours;
+package com.example.nounours.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.nounours.Controllers.LoginController;
+import com.example.nounours.R;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText UserEmail;
@@ -82,12 +83,5 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_bar, menu);
-        return true;
     }
 }
