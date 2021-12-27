@@ -2,7 +2,10 @@ package com.example.nounours.Interfaces;
 
 import com.example.nounours.Data.DataAccount;
 import com.example.nounours.Data.DataDiscover;
+import com.example.nounours.Data.DataFavoriteResponse;
 import com.example.nounours.Data.DataFavorites;
+import com.example.nounours.Data.DataMedia;
+import com.example.nounours.Data.DataSearch;
 import com.example.nounours.Data.DataSessionId;
 import com.example.nounours.Data.DataToken;
 import com.example.nounours.Data.User;
@@ -21,8 +24,16 @@ public interface APIService {
     Call<DataDiscover> getDiscover(@Query("api_key") String Auth, @Query("page") Integer page);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8" })
+    @GET("/3/search/movie")
+    Call<DataSearch> getSearch(@Query("api_key") String Auth, @Query("query") String text);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8" })
     @GET("/3/account/{account_id}/favorite/movies")
     Call<DataFavorites> getFavorites(@Path("account_id") int id, @Query("api_key") String Auth, @Query("session_id") String sessionId, @Query("page") Integer page);
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8" })
+    @POST("/3/account/{account_id}/favorite")
+    Call<DataFavoriteResponse> postFavorites(@Path("account_id") int account_id, @Query("api_key") String Auth, @Query("session_id") String session_id, @Body DataMedia media);
 
     @Headers({ "Content-Type: application/json;charset=UTF-8" })
     @POST("/3/authentication/session/new")

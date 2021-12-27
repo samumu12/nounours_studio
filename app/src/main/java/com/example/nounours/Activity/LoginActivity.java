@@ -21,6 +21,10 @@ public class LoginActivity extends AppCompatActivity {
     private Button Login;
     public static Activity fa;
 
+    public void useToken(String token) {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         final String[] username = {""};
         final String[] password = {""};
 
-        LoginController controller = new LoginController();
+        LoginController controller = new LoginController(this);
+
 
         Login.setEnabled(false);
 
@@ -77,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                 String token = controller.getToken();
 
                 if (token != null) {
-                controller.getLogin(username[0], password[0], token);
+                    controller.getLogin(username[0], password[0], token);
                 }
                 else {
                 }

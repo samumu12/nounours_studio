@@ -1,7 +1,11 @@
 package com.example.nounours.Controllers;
 
+import android.util.Log;
+
 import com.example.nounours.Data.DataAccount;
+import com.example.nounours.Data.DataFavoriteResponse;
 import com.example.nounours.Data.DataFavorites;
+import com.example.nounours.Data.DataMedia;
 import com.example.nounours.Data.DataSessionId;
 import com.example.nounours.Data.DataToken;
 import com.example.nounours.Interfaces.RetrofitAPI;
@@ -26,6 +30,7 @@ public class FavoritesController {
             public void onResponse(Call<DataToken> call, Response<DataToken> response) {
                 if (response.code() == 200) {
                     _token = response.body().token;
+                    Log.d("588", response.body().token);
                 }
             }
 
@@ -34,7 +39,6 @@ public class FavoritesController {
                 _token = "";
             }
         });
-        call.timeout();
         return (_token);
     }
 
@@ -79,7 +83,6 @@ public class FavoritesController {
     }
 
     public void getFavorites(Integer page, FavoritesContent content_ptr, String session, int accountId) {
-
         Call<DataFavorites> call = service.getFavorites(accountId, "d3a6973dd4a2b15cbcda2963be1fd795", session, page.intValue());
 
         call.enqueue(new Callback<DataFavorites>() {
@@ -91,6 +94,25 @@ public class FavoritesController {
             @Override
             public void onFailure(Call<DataFavorites> call, Throwable t) {
                 // Error
+            }
+        });
+    }
+
+    public void postFavorites(int account_id, String sessionId, String media_type, int media_id, boolean favorite) {
+        DataMedia media = new DataMedia(media_type, media_id, favorite);
+        Call<DataFavoriteResponse> call = service.postFavorites(account_id, "d3a6973dd4a2b15cbcda2963be1fd795", sessionId, media);
+
+        call.enqueue(new Callback<DataFavoriteResponse>() {
+            @Override
+            public void onResponse(Call<DataFavoriteResponse> call, Response<DataFavoriteResponse> response) {
+                if (response.code() == 200) {
+                    Log.d("1", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataFavoriteResponse> call, Throwable t) {
+
             }
         });
     }

@@ -13,6 +13,11 @@ import retrofit2.Response;
 public class LoginController {
     APIService service = RetrofitAPI.getRetrofit();
     String _token;
+    LoginActivity _activity;
+
+    public LoginController(LoginActivity loginActivity) {
+        _activity = loginActivity;
+    }
 
     public String getToken() {
         Call<DataToken> call = service.getToken("d3a6973dd4a2b15cbcda2963be1fd795");
@@ -21,6 +26,7 @@ public class LoginController {
             public void onResponse(Call<DataToken> call, Response<DataToken> response) {
                 if (response.code() == 200) {
                     _token = response.body().token;
+                    _activity.useToken(response.body().token);
                 }
             }
 

@@ -2,12 +2,15 @@ package com.example.nounours.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
 import com.example.nounours.Discover.DiscoverFragment;
 import com.example.nounours.Favorites.FavoritesFragment;
 import com.example.nounours.R;
+import com.example.nounours.Research.ResearchFragment;
+import com.example.nounours.Research.ResearchBarFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
         setContentView(R.layout.activity_main);
 
         // Navigation
@@ -45,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                     return true;
                 case R.id.research:
-                    setContentView(R.layout.activity_login);
+                    getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.placeholder, new ResearchBarFragment(this))
+                        .commit();
                     return true;
                 default:
                     return false;

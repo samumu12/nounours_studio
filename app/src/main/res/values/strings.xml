@@ -14,8 +14,11 @@
     <string name="login_failed">"Login failed"</string>
 
     <!-- Menu part -->
-    <string name="title_activity_film">Film activity</string>
+    <string name="title_activity_film">Film description</string>
     <string name="discover">Discover</string>
     <string name="favorites">Favorites</string>
     <string name="research">Research</string>
+    <string name="add_fav">Add to favorites</string>
+    <string name="prompt_research">Search movie ...</string>
+    <string name="action_research">Search</string>
 </resources>
